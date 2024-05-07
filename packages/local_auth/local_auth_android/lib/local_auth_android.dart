@@ -86,7 +86,7 @@ class LocalAuthAndroid extends LocalAuthPlatform {
                 'until the user unlocks with strong authentication '
                 '(PIN/Pattern/Password)');
       case AuthResult.errorUserCanceled:
-        throw PlatformException(code: 'UserCancelled',
+        throw PlatformException(code: 'UserCancel',
         message: 'The operation was canceled because ERROR_USERCANCELED');
     }
   }
