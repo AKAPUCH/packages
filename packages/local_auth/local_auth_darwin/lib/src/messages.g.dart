@@ -39,7 +39,7 @@ enum AuthResult {
   errorUserCancel,
 
   /// Exceed try on authentication
-  errorLockedOut,
+  errorLockOut,
 }
 
 /// Pigeon equivalent of the subset of BiometricType used by iOS.
