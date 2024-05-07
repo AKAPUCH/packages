@@ -201,7 +201,7 @@ typedef void (^FLADAuthCompletion)(FLADAuthResultDetails *_Nullable, FlutterErro
       case LAErrorBiometryNotAvailable:
       case LAErrorBiometryNotEnrolled:
       case LAErrorBiometryLockout:
-//      case LAErrorUserFallback:
+      case LAErrorUserFallback:
       case LAErrorPasscodeNotSet:
       case LAErrorAuthenticationFailed:
       case LAErrorUserCancel:
@@ -248,6 +248,7 @@ typedef void (^FLADAuthCompletion)(FLADAuthResultDetails *_Nullable, FlutterErro
                                                        : FLADAuthResultErrorNotEnrolled;
       break;
     case LAErrorBiometryLockout:
+    case LAErrorUserFallback:
           if (options.useErrorDialogs) {
               [self showAlertWithMessage:strings.lockOut
                       dismissButtonTitle:strings.cancelButton
