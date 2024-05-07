@@ -73,7 +73,7 @@ class LocalAuthDarwin extends LocalAuthPlatform {
             details: resultDetails.errorDetails);
       case AuthResult.errorLockOut:
         throw PlatformException(
-            code: 'LockOut',
+            code: 'LockedOut',
             message: resultDetails.errorMessage,
             details: resultDetails.errorDetails);
     }
