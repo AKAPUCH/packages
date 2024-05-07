@@ -85,6 +85,9 @@ class LocalAuthAndroid extends LocalAuthPlatform {
                 'occurred too many times. Biometric authentication is disabled '
                 'until the user unlocks with strong authentication '
                 '(PIN/Pattern/Password)');
+      case AuthResult.errorUserCanceled:
+        throw PlatformException(code: 'UserCancelled',
+        message: 'The operation was canceled because ERROR_USERCANCELED');
     }
   }
 

@@ -66,6 +66,16 @@ class LocalAuthDarwin extends LocalAuthPlatform {
             code: 'PasscodeNotSet',
             message: resultDetails.errorMessage,
             details: resultDetails.errorDetails);
+      case AuthResult.errorUserCancel:
+        throw PlatformException(
+            code: 'UserCancel',
+            message: resultDetails.errorMessage,
+            details: resultDetails.errorDetails);
+      case AuthResult.errorLockOut:
+        throw PlatformException(
+            code: 'LockOut',
+            message: resultDetails.errorMessage,
+            details: resultDetails.errorDetails);
     }
   }
 

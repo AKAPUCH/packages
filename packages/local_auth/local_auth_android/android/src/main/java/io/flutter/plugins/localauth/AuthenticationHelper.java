@@ -149,6 +149,10 @@ class AuthenticationHelper extends BiometricPrompt.AuthenticationCallback
       case BiometricPrompt.ERROR_LOCKOUT_PERMANENT:
         completionHandler.complete(Messages.AuthResult.ERROR_LOCKED_OUT_PERMANENTLY);
         break;
+      case BiometricPrompt.ERROR_USER_CANCELED:
+      case BiometricPrompt.ERROR_NEGATIVE_BUTTON:
+        completionHandler.complete(Messages.AuthResult.ERROR_USER_CANCELED);
+        break;
       case BiometricPrompt.ERROR_CANCELED:
         // If we are doing sticky auth and the activity has been paused,
         // ignore this error. We will start listening again when resumed.
@@ -159,6 +163,8 @@ class AuthenticationHelper extends BiometricPrompt.AuthenticationCallback
         }
         break;
       default:
+        System.out.println("에러코드: ");
+        System.out.println(errorCode);
         completionHandler.complete(Messages.AuthResult.FAILURE);
     }
     stop();

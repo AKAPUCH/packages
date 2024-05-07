@@ -8,7 +8,9 @@
 
 typedef void (^FLADAuthCompletion)(FLADAuthResultDetails *_Nullable, FlutterError *_Nullable);
 
-/// A default context factory that wraps standard LAContext allocation.
+/**
+ * A default context factory that wraps standard LAContext allocation.
+ */
 @interface FLADefaultAuthContextFactory : NSObject <FLADAuthContextFactory>
 @end
 
@@ -20,7 +22,9 @@ typedef void (^FLADAuthCompletion)(FLADAuthResultDetails *_Nullable, FlutterErro
 
 #pragma mark -
 
-/// A data container for sticky auth state.
+/**
+ * A data container for sticky auth state.
+ */
 @interface FLAStickyAuthState : NSObject
 @property(nonatomic, strong, nonnull) FLADAuthOptions *options;
 @property(nonatomic, strong, nonnull) FLADAuthStrings *strings;
@@ -197,9 +201,10 @@ typedef void (^FLADAuthCompletion)(FLADAuthResultDetails *_Nullable, FlutterErro
       case LAErrorBiometryNotAvailable:
       case LAErrorBiometryNotEnrolled:
       case LAErrorBiometryLockout:
-      case LAErrorUserFallback:
+//      case LAErrorUserFallback:
       case LAErrorPasscodeNotSet:
       case LAErrorAuthenticationFailed:
+      case LAErrorUserCancel:
         [self handleError:error withOptions:options strings:strings completion:completion];
         return;
       case LAErrorSystemCancel:
@@ -243,11 +248,19 @@ typedef void (^FLADAuthCompletion)(FLADAuthResultDetails *_Nullable, FlutterErro
                                                        : FLADAuthResultErrorNotEnrolled;
       break;
     case LAErrorBiometryLockout:
-      [self showAlertWithMessage:strings.lockOut
-               dismissButtonTitle:strings.cancelButton
-          openSettingsButtonTitle:nil
-                       completion:completion];
-      return;
+          if (options.useErrorDialogs) {
+              [self showAlertWithMessage:strings.lockOut
+                      dismissButtonTitle:strings.cancelButton
+                 openSettingsButtonTitle:nil
+                              completion:completion];
+              return;
+          } else {
+              result = FLADAuthResultErrorLockOut;
+          }
+          break;
+      case LAErrorUserCancel:
+          result = FLADAuthResultErrorUserCancel;
+          break;
   }
   completion([FLADAuthResultDetails makeWithResult:result
                                       errorMessage:authError.localizedDescription

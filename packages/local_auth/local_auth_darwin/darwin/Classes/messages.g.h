@@ -25,6 +25,8 @@ typedef NS_ENUM(NSUInteger, FLADAuthResult) {
   FLADAuthResultErrorNotEnrolled = 3,
   /// No passcode is set.
   FLADAuthResultErrorPasscodeNotSet = 4,
+    FLADAuthResultErrorUserCancel = 5,
+    FLADAuthResultErrorLockOut = 6,
 };
 
 /// Wrapper for FLADAuthResult to allow for nullability.
