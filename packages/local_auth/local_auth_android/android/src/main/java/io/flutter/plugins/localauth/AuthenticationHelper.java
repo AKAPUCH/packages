@@ -71,7 +71,8 @@ class AuthenticationHelper extends BiometricPrompt.AuthenticationCallback
     BiometricPrompt.PromptInfo.Builder promptBuilder =
         new BiometricPrompt.PromptInfo.Builder()
             .setDescription(strings.getReason())
-            .setTitle(strings.getSignInTitle())
+            // .setTitle(strings.getSignInTitle())
+            .setTitle(activity.getApplicationContext().getResources().getString(R.string.fingerprint_dialog_touch_sensor))
             .setSubtitle(strings.getBiometricHint())
             .setConfirmationRequired(options.getSensitiveTransaction());
 
