@@ -655,6 +655,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
 
     try {
       await cameraController.initialize();
+      await CameraPlatform.instance.setZoomLevel(controller!.cameraId, 2);
       await Future.wait(<Future<Object?>>[
         // The exposure mode is currently not supported on the web.
         ...!kIsWeb
@@ -1060,7 +1061,8 @@ Future<void> main() async {
   // Fetch the available cameras before initializing the app.
   try {
     WidgetsFlutterBinding.ensureInitialized();
-    _cameras = await CameraPlatform.instance.availableCameras();
+    final x = await CameraPlatform.instance.availableCameras();
+    _cameras = [x.last];
   } on CameraException catch (e) {
     _logError(e.code, e.description);
   }
